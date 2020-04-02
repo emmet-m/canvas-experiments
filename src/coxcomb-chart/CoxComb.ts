@@ -65,7 +65,7 @@ export const drawCoxComb = (data: DataPoint[], id: string, length: number, optio
   }
 
   const maxX = Math.max(...data.map(([x, _]) => x));
-  const sumY = data.map(([_, y]) => y).reduce((y, x) => x + y);
+  const sumY = data.map(([_, y]) => y).reduce((y, x) => x + y, 0);
 
   let beginAngle = 0;
   let endAngle = 0;
