@@ -1,0 +1,17 @@
+{
+  "name": "coxcomb-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "example.ts",
+  "scripts": {
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "awesome-typescript-loader": "^5.2.1"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
+}

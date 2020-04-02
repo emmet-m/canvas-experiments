@@ -1,2 +1,3 @@
-# canvas-experiments
-Some HTML5 Canvas mini-projects
+# Canvas Experiments
+
+Various HTML5 canvas experiments
