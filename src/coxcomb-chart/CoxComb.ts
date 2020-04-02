@@ -25,7 +25,7 @@ export interface ICoxcombOptions {
    * A color palette to cycle over for each data point
    * If a data point has a specified color, that takes preference
    */
-  colorPalette?: Color[] 
+  colorPalette?: Color[]
 };
 
 /**
@@ -41,11 +41,11 @@ export const drawCoxComb = (data: DataPoint[], id: string, length: number, optio
   if (options && options.sortBy) {
     const cmp = ([x1, y1], [x2, y2]) => {
       let a = options.sortBy === "x" ? x1 : y1,
-          b = options.sortBy === "x" ? x2 : y2;
+        b = options.sortBy === "x" ? x2 : y2;
 
       if (options.reverseOrder)
         return a - b;
-      
+
       return b - a;
     };
 
@@ -65,24 +65,40 @@ export const drawCoxComb = (data: DataPoint[], id: string, length: number, optio
   }
 
   const maxX = Math.max(...data.map(([x, _]) => x));
-  const sumY = data.map(([_, y]) => y).reduce((y,x) => x + y);
-  
+  const sumY = data.map(([_, y]) => y).reduce((y, x) => x + y);
+
   let beginAngle = 0;
   let endAngle = 0;
-  const radLen = length/2;
-  
-  data.forEach((d,i) => {
+  const radLen = length / 2;
+
+  data.forEach((d, i) => {
     const x = d[0], y = d[1], color = d[2];
     beginAngle = endAngle;
-    endAngle = endAngle + (y/sumY);
+    endAngle = endAngle + (y / sumY);
 
     ctx.beginPath();
-    ctx.fillStyle = color 
+    ctx.fillStyle = color
       || (options && options.colorPalette && options.colorPalette[i % options.colorPalette.length])
       || "gray";
-    ctx.arc(length/2, length/2, radLen*(x/maxX),
-            2*Math.PI*beginAngle, 2*Math.PI*endAngle);
-    ctx.lineTo(length/2, length/2);
+
+    let centerX;
+    if (options?.centerPoint)
+      centerX = options.centerPoint[0];
+    else
+      centerX = length/2;
+
+    let centerY;
+    if (options?.centerPoint)
+      centerY = options.centerPoint[1];
+    else
+      centerY = length/2;
+
+    ctx.arc(centerX, centerY,
+      radLen * (x / maxX),
+      2 * Math.PI * beginAngle,
+      2 * Math.PI * endAngle);
+
+    ctx.lineTo(centerX, centerY);
     ctx.fill();
   });
 }
