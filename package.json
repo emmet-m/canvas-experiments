@@ -1,0 +1,19 @@
+{
+  "name": "canvas-experiments",
+  "version": "1.0.0",
+  "description": "Various HTML5 canvas experiments",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmet-m/canvas-experiments.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/emmet-m/canvas-experiments/issues"
+  },
+  "homepage": "https://github.com/emmet-m/canvas-experiments#readme"
+}
