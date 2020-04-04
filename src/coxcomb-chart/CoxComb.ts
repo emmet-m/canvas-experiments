@@ -26,6 +26,11 @@ export interface ICoxcombOptions {
    * If a data point has a specified color, that takes preference
    */
   colorPalette?: Color[]
+
+  /**
+   * Highlight the i'th data point
+   */
+  highlight?: number;
 };
 
 /**
@@ -35,7 +40,9 @@ export interface ICoxcombOptions {
  * @param length the length of the chart
  * @param options optional values for drawing the chart
  */
-export const drawCoxComb = (data: DataPoint[], id: string, length: number, options?: ICoxcombOptions) => {
+export const drawCoxComb = (externalData: DataPoint[], id: string, length: number, options?: ICoxcombOptions) => {
+  // clone data so sorting doesn't affect
+  let data = [...externalData];
 
   // Sort data if requested
   if (options && options.sortBy) {
@@ -77,9 +84,13 @@ export const drawCoxComb = (data: DataPoint[], id: string, length: number, optio
     endAngle = endAngle + (y / sumY);
 
     ctx.beginPath();
-    ctx.fillStyle = color
-      || (options && options.colorPalette && options.colorPalette[i % options.colorPalette.length])
-      || "gray";
+    if (typeof options?.highlight === "number" && options.highlight !== i) {
+      ctx.fillStyle = "#ebebeb";
+    } else {
+      ctx.fillStyle = color
+        || (options && options.colorPalette && options.colorPalette[i % options.colorPalette.length])
+        || "gray";
+    }
 
     let centerX;
     if (options?.centerPoint)
